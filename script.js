@@ -62,6 +62,8 @@ let qNoRandom = 0;    // the index which carry index of list and fetch index of 
     .catch(error => console.log("error =>",error));
 }*/
 
+document.querySelector('.loading-screen').style.display = 'block';
+
 async function questions(){
   const result = await fetch('https://opentdb.com/api.php?amount=34&category=18&difficulty=easy&type=multiple');
   const data = await result.json();
@@ -73,6 +75,7 @@ async function questions(){
     index = lEl[qNoRandom];
     showQuestions(data.results[index]);
   }
+  document.querySelector('.loading-screen').style.display = 'none';
 }
 
 
