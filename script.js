@@ -1,4 +1,5 @@
 // https://opentdb.com/api.php?amount=30&category=18&difficulty=easy&type=multiple
+document.querySelector('.loading-screen').style.display = 'block';
 
 // -------- timer ---------
 let time = document.querySelector(".time");
@@ -62,7 +63,7 @@ let qNoRandom = 0;    // the index which carry index of list and fetch index of 
     .catch(error => console.log("error =>",error));
 }*/
 
-document.querySelector('.loading-screen').style.display = 'block';
+
 
 async function questions(){
   const result = await fetch('https://opentdb.com/api.php?amount=34&category=18&difficulty=easy&type=multiple');
@@ -70,17 +71,15 @@ async function questions(){
   if (qNoRandom == 0) {
     index = lEl[qNoRandom];
     showQuestions(data.results[index]);
-    next.classList.remove("next-show");
-    clearInterval(again);
-    startTimer(timeValue);
+    
   }
   else{
     index = lEl[qNoRandom];
     showQuestions(data.results[index]);
-    next.classList.remove("next-show");
-    clearInterval(again);
-    startTimer(timeValue);
   }
+  next.classList.remove("next-show");
+  clearInterval(again);
+  startTimer(timeValue);
   document.querySelector('.loading-screen').style.display = 'none';
 }
 
@@ -175,7 +174,7 @@ restart.onclick = (e) =>{
 
 // -------- showQ, Opt, SelAns ---------
 function showQuestions(data){
-  NoOfQues++;
+  NoOfQues += 1;
   let q = `<h3>`+ `${NoOfQues}. ` + data.question +`</h3>`;
   ques.innerHTML = q;
   queCount.innerHTML = NoOfQues + ` / 6`;
@@ -222,6 +221,9 @@ function optionSelected(answer){
   clearInterval(again);
   let Arrlen = shuffledOptions.length;
   // next.classList.add("next-show");
+  setTimeout(function() {
+    next.classList.add("next-show");
+  }, 1000);
   let optSel = answer.textContent;
   // console.log("the option selected =>",optSel);
   // console.log("the correct answer is =>",cAns(correct_answer));
@@ -249,20 +251,14 @@ function optionSelected(answer){
     opt.children[i].classList.add('disabled');
   }
 
-  setTimeout(function() {
-    next.classList.add("next-show");
-  }, 1000);
 }
 
 
 
 next.onclick = ()=>{
-  console.log("N-Next button clicked");
-  console.log("N-NoOfQues:", NoOfQues);
-  console.log("N-qNoRandom:", qNoRandom);
   if(NoOfQues < 6 && qNoRandom < 6){
-      qNo++;
-      qNoRandom++;
+      qNo += 1;
+      qNoRandom += 1;
       questions();
   }
   else{
