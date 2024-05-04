@@ -70,10 +70,16 @@ async function questions(){
   if (qNoRandom == 0) {
     index = lEl[qNoRandom];
     showQuestions(data.results[index]);
+    next.classList.remove("next-show");
+    clearInterval(again);
+    startTimer(timeValue);
   }
   else{
     index = lEl[qNoRandom];
     showQuestions(data.results[index]);
+    next.classList.remove("next-show");
+    clearInterval(again);
+    startTimer(timeValue);
   }
   document.querySelector('.loading-screen').style.display = 'none';
 }
@@ -245,7 +251,7 @@ function optionSelected(answer){
 
   setTimeout(function() {
     next.classList.add("next-show");
-  }, 2000);
+  }, 1000);
 }
 
 
@@ -257,10 +263,7 @@ next.onclick = ()=>{
   if(NoOfQues < 6 && qNoRandom < 6){
       qNo++;
       qNoRandom++;
-      next.classList.remove("next-show");
       questions();
-      clearInterval(again);
-      startTimer(timeValue);
   }
   else{
       showResult();
