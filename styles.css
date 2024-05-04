@@ -88,6 +88,11 @@ header{
   border-bottom: 2px solid grey;
 }
 
+.heading{
+  font-size: 24px;
+  font-weight: 600;
+}
+
 .head{
   display: flex;
 }
